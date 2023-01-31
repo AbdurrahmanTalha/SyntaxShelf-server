@@ -7,27 +7,27 @@ const userSchema = mongoose.Schema({
         required: [true, "Please Give a name"],
         minLength: [3, "Please Give a name longer than 3 letters"],
         maxLength: [20, "Please Give a name less than 20 letters"],
-        trim: true
+        trim: true,
+        unique: [true, "Name already exists, Choose a different Name"]
     },
     email: {
         type: String,
         validate: [validator.isEmail, "Please provide a valid Email"],
         required: [true, "Please Give a Email"],
+        unique: [true, "Email already exists, Choose a different Email"]
     },
     password: {
         type: String,
         required: [true, 'Please provide a valid password'],
-        validate: {
-            validator: (value) =>
-                validator.isStrongPassword(value, {
-                    minLength: 6,
-                    minLowercase: 3,
-                    minNumbers: 1,
-                    minUppercase: 1,
-                    minSymbol: 1,
-                }),
-            message: "Password {VALUE} is not strong enough"
-        },
+        validator: (value) =>
+            validator.isStrongPassword(value, {
+                minLength: 6,
+                minLowercase: 3,
+                minNumbers: 1,
+                minUppercase: 1,
+                minSymbol: 1,
+            }),
+        message: "Password {VALUE} is not strong enough"
     },
     address: {
         type: String,
